@@ -1,0 +1,136 @@
+context api -- 
+
+-data to be shared is created in context
+-useContext hook is used 
+
+
+-create new component for context share (ContextShare.jx)
+-import ContextShare.jx in index.js for using it in all other component
+-and embbed it with <App/> ---
+                    import React from 'react';
+                    import ReactDOM from 'react-dom/client';
+                    import './index.css';
+                    import App from './App';
+                    import './bootstrap.min.css'
+                    import { BrowserRouter } from 'react-router-dom';
+                    import ContextShare from './components/ContextShare';
+
+
+                    const root = ReactDOM.createRoot(document.getElementById('root'));
+                        root.render(
+                        <React.StrictMode>
+                    <BrowserRouter>
+
+                        <ContextShare>
+                        <App />
+                            </ContextShare>
+
+                    
+
+                        </BrowserRouter>
+                    </React.StrictMode>
+                        );
+
+-create context globaly not inside the function
+-createContext() library is used
+-childern is mentioned as object  inside function for access all the children like Home Add etc (data sharing component to share data is represented by children)
+                        import React, { createContext } from 'react'
+
+                        export const registerContext=createContext()
+
+                        function ContextShare({children}) {
+                    return (
+                    <div>ContextShare</div>
+                    )
+                    }
+
+                    export default ContextShare
+
+
+- state is created inside the function for datasharing
+- childern is mentioned in registerContext tag
+
+                        import React, { createContext, useState } from 'react'
+
+                        export const registerContext=createContext()
+
+                    function ContextShare({children}) {
+                    const[registerData,setregisterData]=useState("")
+                    return (
+                    <registerContext>
+                        {children}
+                    </registerContext>
+                        )
+                    }
+                    export default ContextShare
+
+- provider and value is given
+-provider method is used to get that context to all ather components
+
+            import React, { createContext, useState } from 'react'
+
+            export const registerContext=createContext()
+
+            function ContextShare({children}) {
+                const[registerData,setregisterData]=useState("")
+            return (
+                <registerContext.Provider value={{registerData, setregisterData}}>
+                    {children}
+                </registerContext.Provider>
+            )
+            }
+
+            export default ContextShare
+
+-then take component where the context need to be used by using useContext() hook
+  
+  to use registerContext is another component we use the state registerData and useContext()
+
+  in Add.jsx
+        // import registerContext and hooks      
+        const{registerData,setregisterData}=useContext(registerContext)
+
+        code added in the api calling section
+                    if(result.status===200){
+
+                    // to make state empty after submitting
+                        setnormalInputs({...normalInputs,
+                        fname: "",
+                        lname: "",
+                        email: "",
+                        mobile: "",
+                        gender: "",
+                        location: ""})
+                        setStatus("")
+                        setProfile("")
+
+                    // to get all data after submitting
+                    // setregisterData data from context is used to pass data from Add.jsx
+                    setregisterData(result.data)
+                    navigate('/')
+
+                }else{
+                    toast.warn("error request")
+                }
+
+
+-in Home.jsx
+  to get the data shared from Add.jsx
+        
+        // import registerContext and hooks
+        // object
+        const{registerData,setregisterData}=useContext(registerContext)
+
+        const navigate = useNavigate() 
+
+
+        
+        after return 
+
+                {/* for getting data from Add.jsx as contextshare */}
+                {
+                registerData&&<Alert variant='success' onClose={()=>setregisterData("")} dismissible >
+                {registerData.fname.toUpperCase()}
+                </Alert>
+                }
+

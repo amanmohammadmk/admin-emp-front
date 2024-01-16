@@ -1,0 +1,23 @@
+@keyframes example {
+    0% {opacity: 50%;
+        color: aqua;
+    
+    }
+    20% {opacity: 70%;
+        color: white;
+    }
+    40% {opacity: 100%;
+        color: aqua;
+    }
+    60% {opacity: 70%;
+        color: white;
+    }
+    80% {opacity: 50%;
+        color: aqua;
+    }
+    100% {opacity: 70%;
+        color: white;
+    }
+ 
+   
+  }
