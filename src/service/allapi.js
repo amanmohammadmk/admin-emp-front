@@ -2,6 +2,13 @@ import { BASE_URL } from "./baseurl";
 import { commonApi } from "./commonapi";
 
 
+
+// login
+export const login=async(body,header)=>{
+
+  return await  commonApi("POST",`${BASE_URL}/login`,body,header)
+
+}
 // add employe
 
 export const addUser=async(body,header)=>{

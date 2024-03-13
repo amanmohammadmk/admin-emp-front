@@ -18,15 +18,15 @@ function View() {
 
   const getUserview = async () => {
 
-    // we get data from from backend
+    
     const { data } = await getUsers("")
     console.log("data for view ", data);
 
-    // to check the id get while clicking view button on hometable (_id)
+
     console.log(data.find(item => item._id === id));
 
 
-    // save all its content to setuser
+ 
     setUser(data.find(item => item._id === id));
   }
 
@@ -76,10 +76,10 @@ function View() {
                     <span className="font-weight-bold text-black-50">Gender : </span> {user.gender}
                   </h3>
                   <h3 className="user-status">
-                    <span className="font-weight-bold text-black-50">Status : </span>{' '}
-                    <button className={`btn ${user.status === 'Active' ? 'btn-success' : 'btn-danger'}`}>
+                    <span className="font-weight-bold text-black-50">Designation : </span>{' '}
+                  
                       {user.status}
-                    </button>
+                  
                   </h3>
                   <h3 className="user-location">
                     <span className="font-weight-bold text-black-50">Location : </span>{' '}

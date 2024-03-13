@@ -14,52 +14,54 @@ function Hometable({ displayData,removeUser }) {
 
   return (
     <>
-      <Table striped bordered hover classname='mt-3 '>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Mobile</th>
-            <th>Status</th>
-            <th>Profile</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
+     <div className='table-responsive mt-3'>
+  <Table striped bordered hover>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Designation</th>
+        <th>Course</th>
+        <th>Profile</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        displayData.length > 0 ?
+          displayData.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{item.fname} {item.lname}</td>
+              <td>{item.email}</td>
+              <td>{item.mobile}</td>
+              <td>{item.status}</td>
+              <td>{item.selectedCourses ? item.selectedCourses.join(', ') : ''}</td>
+              <td><img style={{ width: "70px", height: "70ox" }} src={`${BASE_URL}/uploads/${item.profile}`} alt="" /></td>
+              <td>
+                <Link to={`/view/${item._id}`}>
+                  <i className="fa-sharp fa-solid fa-eye fs-4 me-2"></i>
+                </Link>
+                <Link to={`/edit/${item._id}`}>
+                  <i className="fa-sharp fa-solid fa-pen fs-4 me-2"></i>
+                </Link>
+                <span onClick={() => removeUser(item._id)}>
+                  <i className="fa-sharp fa-solid fa-eye fa-trash fs-4" style={{ color: "red" }}></i>
+                </span>
+              </td>
+            </tr>
+          )) : (
+            <tr className='fw text-center'>
+              <td colSpan="7">Nothing to display</td>
+            </tr>
+          )
+      }
+    </tbody>
+  </Table>
+</div>
 
-            displayData.length > 0 ?
-              displayData.map((item, index) => (
-
-                <tr>
-                  <td>{index+1}</td>
-                  <td>{item.fname} {item.lname}</td>
-                  <td>{item.email}</td>
-                  <td>{item.mobile}</td>
-                  <td><button className={item.status==="Active"?"btn btn-success":"btn btn-danger"}>{item.status}</button></td>
-                  <td><img style={{ width: "70px", height: "70ox" }} src={`${BASE_URL}/uploads/${item.profile}`} alt="" /></td>
-                  <td>
-
-
-                    <Link to={`/view/${item._id}`}> <i class="fa-sharp fa-solid fa-eye fs-4 me-2"></i></Link>
-                    <Link to={`/edit/${item._id}`}><i class="fa-sharp fa-solid fa-pen fs-4 me-2"></i></Link>
-                    <span onClick={()=>removeUser(item._id)}><i class="fa-sharp fa-solid fa-eye fa-trash fs-4" style={{ color: "red" }}></i></span>
-
-                  </td>
-                </tr>
-
-              )):(
-                <tr className='fw text-center'>
-                    Nothing to display
-                </tr>
-              )
-        
-          }
-
-
-        </tbody>
-      </Table>
     </>
   )
 }

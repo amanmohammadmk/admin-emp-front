@@ -15,7 +15,7 @@ function Header() {
 
             <Link to={'/'} style={{textDecoration:"none"}}>
               <i class="fa-sharp fa-solid fa-people-group fa-flip me-2" ></i>
-              EMS-APPLICATION
+              EMPLOYEE-ADMIN-PANEL
             </Link>
 
           </Navbar.Brand>

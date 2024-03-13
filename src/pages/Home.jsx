@@ -14,7 +14,7 @@ function Home() {
 
   const[allUserdata,setallUserdata]=useState([])
 
-  // object
+  
   const { registerData, setregisterData } = useContext(registerContext)
 
   const navigate = useNavigate()
@@ -52,7 +52,7 @@ function Home() {
   }, [search])
 
 
-  // delete user
+
 
   const removeUser=async(id)=>{
 
@@ -72,7 +72,7 @@ function Home() {
   return (
     <>
 
-      {/* for getting data from Add.jsx as contextshare */}
+     
       {
         registerData && <Alert variant='success' onClose={() => setregisterData("")} dismissible >
 

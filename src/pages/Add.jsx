@@ -12,13 +12,13 @@ import { useNavigate } from "react-router-dom";
 
 function Add() {
   
-  // object
+  
   const{registerData,setregisterData}=useContext(registerContext)
 
   const navigate = useNavigate()
 
   const [showspin, setShowSpin] = useState(true);
-
+  const [selectedCourses, setSelectedCourses] = useState([]);
 
   useEffect(() => {
 
@@ -30,8 +30,9 @@ function Add() {
   }, []);
 
   const options = [
-    { value: "Active", label: "Active" },
-    { value: "Inactive", label: "Inactive" },
+    { value: "HR", label: "HR" },
+    { value: "Manager", label: "MANAGER" },
+    { value: "Sales", label: "SALES" },
   ];
 
 
@@ -73,6 +74,15 @@ function Add() {
   }
   console.log(normalInputs);
 
+  const handleCourseChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedCourses([...selectedCourses, value]);
+    } else {
+      setSelectedCourses(selectedCourses.filter(course => course !== value));
+    }
+  };
+
 
   // to get ptofile
   const getandsetprofile = (e) => {
@@ -88,7 +98,7 @@ function Add() {
 
     // destrecture
     const { fname, lname, email, mobile, gender, location } = normalInputs
-    if (!fname || !lname || !email || !mobile || !gender || !location || !status || !profile) {
+    if (!fname || !lname || !email || !mobile || !gender || !location || !status || selectedCourses.length === 0 || !profile) {
       toast.warn("fil")
     }
     else {
@@ -104,6 +114,7 @@ function Add() {
       data.append("location", location)
       data.append("status", status)
       data.append("profile", profile)
+      data.append("selectedCourses", selectedCourses.join(','));
 
       // multi purpose home data
 
@@ -126,11 +137,12 @@ function Add() {
             gender: "",
             location: ""})
             setStatus("")
+            setSelectedCourses("")
             setProfile("")
 
         // to get all data after submitting
         setregisterData(result.data)
-        navigate('/')
+        navigate('/home')
 
       }else{
         toast.warn("error request")
@@ -244,9 +256,35 @@ function Add() {
                   {/* STATUS  */}
 
                   <Form.Group className=" mb-3 col-lg-6">
-                    <Form.Label>Select Employee status</Form.Label>
+                    <Form.Label>Designation</Form.Label>
                     <Select options={options} onChange={e => setStatus(e.value)} />
                   </Form.Group>
+
+
+                  <Form.Group className="mb-3">
+            <Form.Label>Select Courses:</Form.Label>
+            <Form.Check
+              type="checkbox"
+              label="MCA"
+              value="MCA"
+              checked={selectedCourses.includes('MCA')}
+              onChange={handleCourseChange}
+            />
+            <Form.Check
+              type="checkbox"
+              label="BCA"
+              value="BCA"
+              checked={selectedCourses.includes('BCA')}
+              onChange={handleCourseChange}
+            />
+            <Form.Check
+              type="checkbox"
+              label="BSC"
+              value="BSC"
+              checked={selectedCourses.includes('BSC')}
+              onChange={handleCourseChange}
+            />
+          </Form.Group>
 
 
 

@@ -5,6 +5,8 @@ import View from './pages/View';
 import Edit from './pages/Edit';
 import Add from './pages/Add';
 import Header from './components/Header';
+import Login from './pages/Login';
+import Main from './pages/Main';
 
 
 
@@ -15,7 +17,10 @@ function App() {
 
       <Header/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        
+        <Route path="/" element={<Main/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/home" element={<Home/>}/>
         <Route path="/add" element={<Add/>}/>
         <Route path="/view/:id" element={<View/>}/>
         <Route path="/edit/:id" element={<Edit/>}/>

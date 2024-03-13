@@ -165,7 +165,7 @@ function Edit() {
       if (result.status === 200) {
 
   
-        navigate('/')
+        navigate('/home')
 
 
       }
